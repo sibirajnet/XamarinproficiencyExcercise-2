@@ -2,6 +2,7 @@
 using Xunit;
 using PCLMock;
 using PasswordKata.Tests.Mocks;
+using FluentAssertions;
 namespace PasswordKata.Tests
 {
 	public class PasswordVerifierFixtures
@@ -47,6 +48,15 @@ namespace PasswordKata.Tests
             PasswordVerifier_Number_Mock password_verifier = new PasswordVerifier_Number_Mock(password);
             bool actual = password_verifier.Verify();
             Assert.Equal(expected, actual);
+        }
+        [Theory]
+        [InlineData(null, false)]
+        public void Password_check_Feature_2(string password, bool expected)
+        {
+
+            var sut = new PasswordVerifierBuilder_Feature_2().WithPassword("PASSWORDTEST");
+            sut.Build().Verify().Should().Be(true);
+
         }
 	}
    
